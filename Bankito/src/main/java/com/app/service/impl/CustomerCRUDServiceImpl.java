@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 
 import com.app.model.Customer;
 import com.app.repository.CustomerRepository;
+import com.app.repository.TransactionsRepository;
 import com.app.service.CustomerCRUDService;
 
 
@@ -13,6 +14,13 @@ public class CustomerCRUDServiceImpl implements CustomerCRUDService {
 	@Autowired
 	private CustomerRepository repository;
 
+	
+	
+	
+	
+	
+	
+	
 	@Override
 	public Customer updateCustomer(Customer customer) {
 
@@ -32,8 +40,9 @@ public class CustomerCRUDServiceImpl implements CustomerCRUDService {
 
 	@Override
 	public Customer addCustomer(Customer customer) throws Exception {
-    
+	
 		return repository.save(customer);
+		
 		}
 
 	@Override
@@ -44,15 +53,7 @@ public class CustomerCRUDServiceImpl implements CustomerCRUDService {
 	
 	}
 
-//    @Override
-//	public boolean ifCustomerExist(String email)throws Exception {
-//		Customer c=new Customer();
-//		c=repository.findByCustomerEmail(email);
-//		
-//		if(c.getCustomerEmail().equals(email)) {
-//			return true;
-//		}
-//	   
-//	   return false;
-//}
+	
+
+
 }

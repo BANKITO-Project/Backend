@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -39,7 +40,7 @@ public class TransactionController {
 	           c=transaction.getCustomerId();amount=transaction.getTransactionAmount();
 			return service.withdrawAmount(c,amount);
 		}
-		@PutMapping("/transactions/{customerId}")
+		@GetMapping("/transactions/{customerId}")
 		public List<Transactions> getAllTransactions(@PathVariable int customerId) {
 			 
 			return service.allTransactions(customerId);
@@ -53,4 +54,8 @@ public class TransactionController {
 			return service.amountTransfer(c,amount);
 		}
 		
+		@GetMapping("/transaction/{id}")
+		public Transactions getTransactionById(@PathVariable int id) {
+			return service.getTransactionById(id);
+		}
 }

@@ -18,7 +18,7 @@ public class CustomerSearchController {
 		
 		@GetMapping("/customers")
 		public List<Customer> getAllCustomers() {
-			// TODO Auto-generated method stub
+			
 			return service.getAllCustomers();
 		}
 

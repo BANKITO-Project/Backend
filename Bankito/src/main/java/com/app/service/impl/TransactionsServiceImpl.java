@@ -97,6 +97,13 @@ import com.app.service.TransactionsService;
 		}
 			return c;
 		}
+
+		@Override
+		public Transactions getTransactionById(int transactionId) {
+			Transactions transaction=new Transactions();
+			transaction=transactionrepository.findById(transactionId).get();
+			return transaction;
+		}
 		
 	}
 

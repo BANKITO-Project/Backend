@@ -8,6 +8,7 @@ public interface TransactionsService {
 	 Customer withdrawAmount(int customerId,long wamount) ;
 	 List<Transactions> allTransactions(int customerId);
 	 Customer amountTransfer(int customerId,long amount);
+	 Transactions getTransactionById(int transactionId);
 //	   deposite(custmer_id,amount)
 //	   withdraw(customer_id,amount)
 	   

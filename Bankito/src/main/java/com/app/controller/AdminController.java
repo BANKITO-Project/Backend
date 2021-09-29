@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.app.BusinessException.BussinessException;
+import com.app.BusinessException.BusinessException;
 import com.app.model.Admin;
 
 @RestController
@@ -25,7 +25,7 @@ public class AdminController {
 		if (flag) {
 			return admin;
 		} else {
-			throw new BussinessException("Invalid login,retry");
+			throw new BusinessException("Invalid login,retry");
 		}
 	}
 }

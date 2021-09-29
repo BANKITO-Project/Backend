@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.app.BusinessException.BusinessException;
 import com.app.model.Customer;
 import com.app.service.CustomerCRUDService;
 
@@ -25,13 +25,16 @@ public class CustomerCRUDController {
 	@PostMapping("/customer")
 	public Customer addCustomer(@RequestBody Customer customer) throws Exception {
 		   Customer c=new Customer();
+		  
 	        String email=customer.getCustomerEmail();
 	        c=service.findByCustomerEmail(email);
+	        
 	        if(c!=null) {
-	        	throw new Exception("Email exists");
+	        	throw new BusinessException("Email already exists");
 	        }
 	         c=null;
 	         c=service.addCustomer(customer);
+	       
 			return c;
 
 	
@@ -48,7 +51,12 @@ public class CustomerCRUDController {
 
 	@GetMapping("/customer/{customerId}")
 	public Customer getCustomerById(@PathVariable int customerId) {
-		return service.getCustomerById(customerId);
+		 Customer c=new Customer();
+		 
+		   c=service.getCustomerById(customerId);
+		  
+		   
+		return c;
 	}
 
 	@DeleteMapping("/customer/{customerId}")
