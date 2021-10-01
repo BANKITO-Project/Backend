@@ -34,6 +34,9 @@ public class CustomerCRUDController {
 	        }
 	         c=null;
 	         c=service.addCustomer(customer);
+	         long n = (long)(Math.random()*(98897823578L-1111111111L)) + 1111111111L;
+	         c.setAccountId(n);
+
 	       
 			return c;
 

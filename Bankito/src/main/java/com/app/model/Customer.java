@@ -9,8 +9,12 @@ import javax.persistence.TableGenerator;
 
 import org.springframework.stereotype.Component;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 @Component
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 @Entity
 @Table
@@ -29,6 +33,6 @@ public class Customer {
 	private long customerBalance;
 	@TableGenerator(name = "Address_Gen", initialValue = 1710002380)
 	@GeneratedValue(strategy = GenerationType.AUTO, generator = "Address_Gen")
-	private int accountId;
+	private long accountId;
 
 }

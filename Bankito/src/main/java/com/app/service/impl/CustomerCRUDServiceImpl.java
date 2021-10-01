@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.model.Customer;
 import com.app.repository.CustomerRepository;
-import com.app.repository.TransactionsRepository;
 import com.app.service.CustomerCRUDService;
 
 

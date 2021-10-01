@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionsServiceImpl.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bankito</a> &gt; <a href="index.source.html" class="el_package">com.app.service.impl</a> &gt; <span class="el_source">TransactionsServiceImpl.java</span></div><h1>TransactionsServiceImpl.java</h1><pre class="source lang-java linenums">package com.app.service.impl;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.app.model.Customer;
+import com.app.model.Transactions;
+import com.app.repository.CustomerRepository;
+import com.app.repository.TransactionsRepository;
+import com.app.service.TransactionsService;
+
+
+	@Service
+<span class="fc" id="L19">	public class TransactionsServiceImpl implements TransactionsService{</span>
+		@Autowired
+		private CustomerRepository repository;
+		@Autowired
+		private TransactionsRepository transactionrepository;
+
+		@Override
+		public Customer depositeAmount(int customerId,long damount) {
+<span class="nc" id="L27">			Customer c=new Customer();</span>
+<span class="nc" id="L28">			Transactions transaction=new Transactions();</span>
+<span class="nc" id="L29">			transaction.setTransactionType(&quot;DEPOSIT&quot;);</span>
+<span class="nc" id="L30">			transaction.setCustomerId(customerId);</span>
+<span class="nc" id="L31">			 DateFormat date_format_obj = new SimpleDateFormat(&quot;dd/MM/yy HH:mm:ss&quot;);</span>
+<span class="nc" id="L32">		        Date date_obj = new Date();</span>
+<span class="nc" id="L33">		        String f=&quot;&quot;;</span>
+<span class="nc" id="L34">		        f=date_format_obj.format(date_obj);</span>
+<span class="nc" id="L35">		        transaction.setTransactionDate(f);</span>
+<span class="nc" id="L36">		        transaction.setTransactionAmount(damount);</span>
+<span class="nc" id="L37">		        transaction.setTransactionStatus(&quot;CREDITED SUCCESSFULLY&quot;);</span>
+<span class="nc" id="L38">		        transactionrepository.save(transaction);</span>
+<span class="nc" id="L39">			c=repository.findById(customerId).get();</span>
+			
+<span class="nc" id="L41">			long upba=c.getCustomerBalance() + damount;</span>
+<span class="nc" id="L42">			c.setCustomerBalance(upba);</span>
+<span class="nc" id="L43">			repository.save(c);</span>
+<span class="nc" id="L44">			return c;</span>
+		}
+
+		@Override
+		public Customer withdrawAmount(int customerId,long wamount) {
+<span class="nc" id="L49">			Customer c=new Customer();</span>
+<span class="nc" id="L50">			Transactions transaction=new Transactions();</span>
+<span class="nc" id="L51">			transaction.setTransactionType(&quot;WITHDRAWING&quot;);</span>
+<span class="nc" id="L52">			transaction.setCustomerId(customerId);</span>
+<span class="nc" id="L53">			 DateFormat date_format_obj = new SimpleDateFormat(&quot;dd/MM/yy HH:mm:ss&quot;);</span>
+<span class="nc" id="L54">		        Date date_obj = new Date();</span>
+<span class="nc" id="L55">		        String f=&quot;&quot;;</span>
+<span class="nc" id="L56">		        f=date_format_obj.format(date_obj);</span>
+<span class="nc" id="L57">		        transaction.setTransactionDate(f);</span>
+<span class="nc" id="L58">		        transaction.setTransactionAmount(wamount);</span>
+<span class="nc" id="L59">		        transaction.setTransactionStatus(&quot;WITHDRAWED SUCCESSFULLY&quot;);</span>
+<span class="nc" id="L60">		        transactionrepository.save(transaction);</span>
+<span class="nc" id="L61">			c=repository.findById(customerId).get();</span>
+<span class="nc bnc" id="L62" title="All 2 branches missed.">			if(wamount &lt;= c.getCustomerBalance()) {</span>
+<span class="nc" id="L63">			c.setCustomerBalance(c.getCustomerBalance() - wamount);</span>
+<span class="nc" id="L64">			repository.save(c);</span>
+			
+		}
+<span class="nc" id="L67">			return c;</span>
+		}
+		
+
+		@Override
+		public List&lt;Transactions&gt; allTransactions(int customerId) {
+<span class="fc" id="L73">			List&lt;Transactions&gt; transactions=transactionrepository.findByCustomerId(customerId);</span>
+			
+<span class="fc" id="L75">			return transactions;</span>
+		}
+
+		@Override
+		public Customer amountTransfer(int customerId, long amount) {
+<span class="nc" id="L80">			Customer c=new Customer();</span>
+<span class="nc" id="L81">			Transactions transaction=new Transactions();</span>
+<span class="nc" id="L82">			transaction.setTransactionType(&quot;TRANSFER&quot;);</span>
+<span class="nc" id="L83">			transaction.setCustomerId(customerId);</span>
+<span class="nc" id="L84">			 DateFormat date_format_obj = new SimpleDateFormat(&quot;dd/MM/yy HH:mm:ss&quot;);</span>
+<span class="nc" id="L85">		        Date date_obj = new Date();</span>
+<span class="nc" id="L86">		        String f=&quot;&quot;;</span>
+<span class="nc" id="L87">		        f=date_format_obj.format(date_obj);</span>
+<span class="nc" id="L88">		        transaction.setTransactionDate(f);</span>
+<span class="nc" id="L89">		        transaction.setTransactionAmount(amount);</span>
+<span class="nc" id="L90">		        transaction.setTransactionStatus(&quot;TRANSFER SUCCESS&quot;);</span>
+<span class="nc" id="L91">		        transactionrepository.save(transaction);</span>
+<span class="nc" id="L92">			c=repository.findById(customerId).get();</span>
+<span class="nc bnc" id="L93" title="All 2 branches missed.">			if(amount &lt;= c.getCustomerBalance()) {</span>
+<span class="nc" id="L94">			c.setCustomerBalance(c.getCustomerBalance() - amount);</span>
+<span class="nc" id="L95">			repository.save(c);</span>
+			
+		}
+<span class="nc" id="L98">			return c;</span>
+		}
+
+		@Override
+		public Transactions getTransactionById(int transactionId) {
+<span class="nc" id="L103">			Transactions transaction=new Transactions();</span>
+<span class="nc" id="L104">			transaction=transactionrepository.findById(transactionId).get();</span>
+<span class="nc" id="L105">			return transaction;</span>
+		}
+		
+	}
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

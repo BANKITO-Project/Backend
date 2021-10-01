@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TransactionController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Bankito</a> &gt; <a href="index.source.html" class="el_package">com.app.controller</a> &gt; <span class="el_source">TransactionController.java</span></div><h1>TransactionController.java</h1><pre class="source lang-java linenums">package com.app.controller;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.app.model.Customer;
+import com.app.model.Transactions;
+import com.app.service.TransactionsService;
+
+@RestController
+@CrossOrigin
+<span class="fc" id="L19">public class TransactionController {</span>
+	
+	
+		@Autowired
+		private TransactionsService service;
+		
+
+		@PutMapping(&quot;/deposite&quot;)
+		public Customer amountDeposite(@RequestBody Transactions transaction) {
+<span class="nc" id="L28">           int c=0;</span>
+<span class="nc" id="L29">           long amount=0;</span>
+<span class="nc" id="L30">           c=transaction.getCustomerId();amount=transaction.getTransactionAmount();</span>
+         
+           
+<span class="nc" id="L33">			return service.depositeAmount(c,amount);</span>
+		}
+
+		@PutMapping(&quot;/withdraw&quot;)
+		public Customer amountWithdrawal(@RequestBody Transactions transaction) {
+<span class="nc" id="L38">			  int c=0;</span>
+<span class="nc" id="L39">	           long amount=0;</span>
+<span class="nc" id="L40">	           c=transaction.getCustomerId();amount=transaction.getTransactionAmount();</span>
+<span class="nc" id="L41">			return service.withdrawAmount(c,amount);</span>
+		}
+		@GetMapping(&quot;/transactions/{customerId}&quot;)
+		public List&lt;Transactions&gt; getAllTransactions(@PathVariable int customerId) {
+			 
+<span class="nc" id="L46">			return service.allTransactions(customerId);</span>
+			
+		}
+		@PutMapping(&quot;/transfer&quot;)
+		public Customer amountTransfer(@RequestBody Transactions transaction) {
+<span class="nc" id="L51">			  int c=0;</span>
+<span class="nc" id="L52">	           long amount=0;</span>
+<span class="nc" id="L53">	           c=transaction.getCustomerId();amount=transaction.getTransactionAmount();</span>
+<span class="nc" id="L54">			return service.amountTransfer(c,amount);</span>
+		}
+		
+		@GetMapping(&quot;/transaction/{id}&quot;)
+		public Transactions getTransactionById(@PathVariable int id) {
+<span class="nc" id="L59">			return service.getTransactionById(id);</span>
+		}
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
